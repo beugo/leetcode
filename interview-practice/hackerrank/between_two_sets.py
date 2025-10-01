@@ -1,50 +1,29 @@
-#!/bin/python3
-
-import math
-import os
-import random
-import re
-import sys
-
-#
-# Complete the 'getTotalX' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts following parameters:
-#  1. INTEGER_ARRAY a
-#  2. INTEGER_ARRAY b
-#
-
 def getTotalX(a, b):
+    """
+    Problem: Find the number of integers that are "between" two sets.
+
+    Rules:
+    - Every integer x considered must be divisible by all elements in array a.
+    - Every integer x considered must also divide all elements in array b.
+    - Return the count of such integers.
+
+    Example:
+    a = [2, 4], b = [16, 32, 96]
+    Valid numbers are {4, 8, 16}, so output = 3.
+
+    Approach:
+    - The candidates must lie between max(a) and min(b).
+    - Step through multiples of max(a).
+    - For each candidate, check both divisibility conditions.
+    """
+
     total = 0
     start = max(a)
     end = min(b)
 
-    numbers = []
-
-    for i in range(start, end + 1, start):  # step by max(a)
-        # check condition 1: every a[j] divides i
-        if all(i % num == 0 for num in a):
-            # check condition 2: i divides every b[k]
-            if all(num % i == 0 for num in b):
+    for i in range(start, end + 1, start):  # only multiples of max(a)
+        if all(i % num == 0 for num in a):      # divisible by all in a
+            if all(num % i == 0 for num in b):  # divides all in b
                 total += 1
-                numbers.append(i)
 
-    print(numbers)
     return total
-
-if __name__ == '__main__':
-
-    first_multiple_input = input().rstrip().split()
-
-    n = int(first_multiple_input[0])
-
-    m = int(first_multiple_input[1])
-
-    arr = list(map(int, input().rstrip().split()))
-
-    brr = list(map(int, input().rstrip().split()))
-
-    total = getTotalX(arr, brr)
-
-    print(str(total) + '\n')

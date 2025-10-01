@@ -1,62 +1,35 @@
-#!/bin/python3
-
-import math
-import os
-import random
-import re
-import sys
-
-#
-# Complete the 'countApplesAndOranges' function below.
-#
-# The function accepts following parameters:
-#  1. INTEGER s
-#  2. INTEGER t
-#  3. INTEGER a
-#  4. INTEGER b
-#  5. INTEGER_ARRAY apples
-#  6. INTEGER_ARRAY oranges
-#
-
 def countApplesAndOranges(s, t, a, b, apples, oranges):
+    """
+    Problem: Count how many apples and oranges fall on Sam's house.
+
+    Setup:
+    - The house lies between points s and t on a number line.
+    - An apple tree is at point a, and an orange tree is at point b.
+    - Each element in apples[] and oranges[] represents the distance 
+      (positive or negative) the fruit falls from its tree.
+
+    Task:
+    - Count how many apples land on the house (between s and t).
+    - Count how many oranges land on the house (between s and t).
+    - Print the counts (apples first, oranges second).
+
+    Example:
+    s = 7, t = 11, a = 5, b = 15
+    apples = [-2, 2, 1], oranges = [5, -6]
+    → Apples landing on house: 1
+    → Oranges landing on house: 1
+    """
+
     roof_apples = 0
     roof_oranges = 0
-    
+
     for apple in apples:
-        result = apple + a
-        if s <= result and result <= t:
+        if s <= apple + a <= t:
             roof_apples += 1
-            
+
     for orange in oranges:
-        result = orange + b
-        if s <= result and result <= t:
+        if s <= orange + b <= t:
             roof_oranges += 1
-    
+
     print(roof_apples)
     print(roof_oranges)
-        
-
-if __name__ == '__main__':
-    first_multiple_input = input().rstrip().split()
-
-    s = int(first_multiple_input[0])
-
-    t = int(first_multiple_input[1])
-
-    second_multiple_input = input().rstrip().split()
-
-    a = int(second_multiple_input[0])
-
-    b = int(second_multiple_input[1])
-
-    third_multiple_input = input().rstrip().split()
-
-    m = int(third_multiple_input[0])
-
-    n = int(third_multiple_input[1])
-
-    apples = list(map(int, input().rstrip().split()))
-
-    oranges = list(map(int, input().rstrip().split()))
-
-    countApplesAndOranges(s, t, a, b, apples, oranges)

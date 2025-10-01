@@ -1,51 +1,35 @@
-#!/bin/python3
-
-import math
-import os
-import random
-import re
-import sys
-
-#
-# Complete the 'birthday' function below.
-#
-# The function is expected to return an INTEGER.
-# The function accepts following parameters:
-#  1. INTEGER_ARRAY s
-#  2. INTEGER d
-#  3. INTEGER m
-#
-
 def birthday(s, d, m):
+    """
+    Problem: Count the number of contiguous segments of length m in the list s
+    such that the sum of each segment equals d.
+    
+    Example:
+    s = [1, 2, 1, 3, 2], d = 3, m = 2
+    Valid segments: [1, 2], [2, 1] → Output = 2
+    
+    Approach:
+    - Use a sliding window of size m across the list.
+    - Keep track of the current window sum.
+    - For each step, update the window sum in O(1) by adding the new element
+      and removing the oldest element.
+    - Count how many times the sum equals d.
+    
+    Complexity:
+    - O(n) time (single pass with window updates).
+    - O(1) extra space.
+    """
+
     count = 0
-    
-    # step 1: initial window sum
+
+    # initial window sum
     window_sum = sum(s[:m])
-    
-    # step 2: check the first window
     if window_sum == d:
         count += 1
-    
-    # step 3: slide the window
+
+    # slide the window
     for i in range(m, len(s)):
-        window_sum += s[i] - s[i - m]  # add new, remove old
+        window_sum += s[i] - s[i - m]
         if window_sum == d:
             count += 1
-    
+
     return count
-
-
-    n = int(input().strip())
-
-    s = list(map(int, input().rstrip().split()))
-
-    first_multiple_input = input().rstrip().split()
-
-    d = int(first_multiple_input[0])
-
-    m = int(first_multiple_input[1])
-
-    result = birthday(s, d, m)
-
-    print(str(result) + '\n')
-
